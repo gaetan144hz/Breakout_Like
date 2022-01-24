@@ -1,75 +1,54 @@
-using System;
 using UnityEngine;
-
-[RequireComponent(typeof(CircleCollider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+using TMPro;
 
 public class Disque : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] public int currentScore;
+    private int startScore;
+    private int lastScore;
+    
+    [SerializeField] float speed;
 
     private Rigidbody2D rb;
 
-    public Vector2 direction;
+    Vector3 lastVelocity;
 
-    private Vector3 lastVelocity;
+    public TextMeshProUGUI scoreText;
 
-    public float time = 1f;
-
-    public Quaternion startQuaternion;
-    
-    private void Awake()
+    // Start is called before the first frame update
+    void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        //rb.velocity = transform.right * speed;
-        rb.velocity = direction.normalized * speed;
+
+        var num = Random.Range(1, 10);
+        Vector3 moveDir = new Vector3(num, num).normalized;
+        rb.velocity = moveDir * speed;
     }
 
-    private void Update()
+    void Update()
     {
         lastVelocity = rb.velocity;
-        startQuaternion = transform.rotation;
+        lastScore = currentScore;
     }
-    
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        
-        
-        if (collision.gameObject.CompareTag("Brique"))
+        if (collision.gameObject.CompareTag("Player")) //&& collision.gameObject.CompareTag("Disque")
         {
-            Vector3 hit = collision.contacts[0].point;
-            Vector3 direction = new Vector3(transform.position.x, transform.position.y);
-            
             var speed = lastVelocity.magnitude;
-            
-            float difference = direction.x - hit.x;
+            var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-            if (hit.x < direction.x)
-            {
-                //rb.velocity = new Vector3(transform.position.x * difference * Time.deltaTime);
-            }
+            rb.velocity = direction * Mathf.Max(speed, 0f);
         }
-
-        else if (collision.gameObject.CompareTag("Arene"))
+        if (collision.gameObject.CompareTag("Brique")) 
         {
-            
-        }
+            var speed = lastVelocity.magnitude;
+            var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        else if (collision.gameObject.CompareTag("Player"))
-        {
-            
-        }
-        
-        else if (collision.gameObject.CompareTag("DeathZone"))
-        {
-            Die();
-        }
-    }
+            currentScore = lastScore + 1;
+            scoreText.text = currentScore.ToString();
 
-    void Die()
-    {
-        Destroy(this.gameObject);
-        Time.timeScale = 0f;
+            rb.velocity = direction * Mathf.Max(speed, 0f);
+        }
     }
 }
