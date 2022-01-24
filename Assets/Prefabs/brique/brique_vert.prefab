@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Brique
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1622125716648426471
 Transform:
@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c342e5ac8f059554081aa885d7826268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 5964042364622681218, guid: 6751522f0c0e28c49a776efb06f1a42a, type: 3}
+  DeathEffectPrefabs: {fileID: 5964042364622681218, guid: 6751522f0c0e28c49a776efb06f1a42a, type: 3}
 --- !u!50 &1622125716648426464
 Rigidbody2D:
   serializedVersion: 4
@@ -105,7 +107,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622125716648426468}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

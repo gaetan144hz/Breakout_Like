@@ -36,11 +36,15 @@ public class PlayerMovement : MonoBehaviour
         playerInput.Disable();
     }
 
-    public void OnMove(InputValue value)
+    public void movement(InputAction.CallbackContext ctx)
     {
         //r�cup�rer l'action maps (**player**) puis l'Action (**move**) dans l'input action ATTENTION AU NOM !!!
-        //Vector2 moveInput = playerInput.player.move.ReadValue<Vector2>();
+        Vector2 moveInput = playerInput.player.move.ReadValue<Vector2>();
+        rb.velocity = moveInput * speed;
+        
+        /*
         Vector2 moveInput = value.Get<Vector2>();
         rb.velocity = moveInput * speed;
+        */
     }
 }

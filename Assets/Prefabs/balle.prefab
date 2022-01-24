@@ -134,5 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17c8da2c84cc7149b2f1f872a09bff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  speed: 5
+  currentScore: 1
+  currentSpeed: 5
+  lastSpeed: 0
+  gameOverScreen: {fileID: 0}
+  scoreText: {fileID: 0}
